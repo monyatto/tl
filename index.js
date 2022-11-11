@@ -2,41 +2,38 @@
 
 new Vue({
   el: '#app',
-  data: function () {
-    return {
-      addText: '',
-      list: [],
-      todos: [],
-      uid: 0,
-    };
+  data: {
+    additionalText: '',
+    list: [],
+    todos: [],
+    uid: 0,
   },
   methods: {
     addTodo: function () {
-      if (this.addText == '') return;
+      if (this.additionalText === '') return;
       this.uid += 1;
-      let todo = {
+      const todo = {
         id: this.uid,
-        text: this.addText,
-        check: false,
-        edit: false,
+        text: this.additionalText,
+        hasCheck: false,
+        canEdit: false,
       };
       this.todos.push(todo);
-      localStorage.setItem('uid', this.uid);
-      this.addText = '';
+      this.additionalText = '';
     },
     removeTodo: function (todo) {
-      var index = this.todos.indexOf(todo);
+      const index = this.todos.indexOf(todo);
       this.todos.splice(index, 1);
     },
     editTodo: function (todo) {
-      todo.edit = !todo.edit;
+      todo.canEdit = !todo.canEdit;
     },
     checkTodo: function (todo) {
-      todo.check = !todo.check;
+      todo.hasCheck = !todo.hasCheck;
     },
     changeTodo: function (todo) {
       if (todo.text == '') return;
-      todo.edit = false;
+      todo.canEdit = false;
     },
   },
   watch: {
