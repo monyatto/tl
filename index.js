@@ -3,45 +3,39 @@
 new Vue({
   el: '#app',
   data: {
-    additionalText: '',
-    list: [],
+    newText: '',
     todos: [],
-    uid: 0,
   },
   methods: {
     addTodo: function () {
-      if (this.additionalText === '') return;
-      this.uid += 1;
+      if (this.newText === '') return;
+      this.uid = self.crypto.randomUUID();
       const todo = {
         id: this.uid,
-        text: this.additionalText,
+        text: this.newText,
         hasCheck: false,
         canEdit: false,
       };
       this.todos.push(todo);
-      this.additionalText = '';
+      this.newText = '';
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     },
     removeTodo: function (todo) {
       const index = this.todos.indexOf(todo);
       this.todos.splice(index, 1);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     },
     editTodo: function (todo) {
       todo.canEdit = !todo.canEdit;
     },
     checkTodo: function (todo) {
       todo.hasCheck = !todo.hasCheck;
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     },
     changeTodo: function (todo) {
-      if (todo.text == '') return;
+      if (todo.text === '') return;
       todo.canEdit = false;
-    },
-  },
-  watch: {
-    todos: {
-      handler: function () {
-        localStorage.setItem('todos', JSON.stringify(this.todos));
-      },
-      deep: true,
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     },
   },
   computed: {

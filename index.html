@@ -5,25 +5,27 @@
   <title>Todoリスト</title>
   <link rel="stylesheet" href="index.css">
   <script src="https://unpkg.com/vue@2.7.11/dist/vue.min.js"></script>
+
+
 </head>
 <body>
 
   <div id="app">
-    <input type="text" v-model="additionalText" placeholder="Todoを入力してください">
+    <input type="text" v-model="newText" placeholder="Todoを入力してください">
     <button v-on:click="addTodo()">追加</button>
     <ul>
       <li v-for="todo in allTodos" :key="todo.id">
-        <div v-if="!todo.canEdit">
+        <div v-if="todo.canEdit">
+          <input v-model="todo.text">
+          <button v-on:click="changeTodo(todo)">完了</button>
+        </div>
+        <div v-else>
           <span :class="{doneTodo: todo.hasCheck}">
-          <input v-if="todo.hasCheck===true" type="checkbox" checked　v-on:click="checkTodo(todo)">{{ todo.text }}
+          <input v-if="todo.hasCheck" type="checkbox" checked　v-on:click="checkTodo(todo)">{{ todo.text }}
           <input v-else type="checkbox" v-on:click="checkTodo(todo)">{{ todo.text }}
         </span>
           <button v-on:click="editTodo(todo)">編集</button>
           <button v-on:click="removeTodo(todo)">削除</button>
-        </div>
-        <div v-else>
-          <input v-model="todo.text">
-          <button v-on:click="changeTodo(todo)">完了</button>
         </div>
       </li>
     </ul>
