@@ -5,8 +5,6 @@
   <title>Todoリスト</title>
   <link rel="stylesheet" href="index.css">
   <script src="https://unpkg.com/vue@2.7.11/dist/vue.min.js"></script>
-
-
 </head>
 <body>
 
@@ -21,9 +19,8 @@
         </div>
         <div v-else>
           <span :class="{doneTodo: todo.hasCheck}">
-          <input v-if="todo.hasCheck" type="checkbox" checked　v-on:click="checkTodo(todo)">{{ todo.text }}
-          <input v-else type="checkbox" v-on:click="checkTodo(todo)">{{ todo.text }}
-        </span>
+            <input type="checkbox" v-model="todo.hasCheck" v-on:click="checkTodo(todo)">{{ todo.text }}
+          </span>
           <button v-on:click="editTodo(todo)">編集</button>
           <button v-on:click="removeTodo(todo)">削除</button>
         </div>
