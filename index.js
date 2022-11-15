@@ -18,24 +18,24 @@ new Vue({
       };
       this.todos.push(todo);
       this.newText = '';
-      this.saveTodo(todo);
+      this.saveTodo();
     },
     removeTodo: function (todo) {
       const index = this.todos.indexOf(todo);
       this.todos.splice(index, 1);
-      this.saveTodo(todo);
+      this.saveTodo();
     },
     editTodo: function (todo) {
       todo.canEdit = !todo.canEdit;
     },
     checkTodo: function (todo) {
       todo.hasCheck = !todo.hasCheck;
-      this.saveTodo(todo);
+      this.saveTodo();
     },
     changeTodo: function (todo) {
       if (todo.text === '') return;
       todo.canEdit = false;
-      this.saveTodo(todo);
+      this.saveTodo();
     },
     saveTodo: function () {
       localStorage.setItem('todos', JSON.stringify(this.todos));
